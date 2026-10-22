@@ -1,0 +1,29 @@
+{
+  "id": 2,
+  "chapter": "PromQL",
+  "difficulty": "easy",
+  "title": "Traffic per service",
+  "intro": "One number hides too much. Break the request rate down so there is one line per service.",
+  "seed": 1002,
+  "scenario": {
+    "incidents": []
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Show requests per second, one series per service",
+      "expected": "sum by (service) (rate(http_requests_total[5m]))"
+    }
+  ],
+  "hints": [
+    "Aggregations accept a by (...) clause.",
+    "sum by (service) (rate(http_requests_total[5m]))"
+  ],
+  "solution": "sum by (service) (rate(http_requests_total[5m]))",
+  "stars": {
+    "targetSeconds": 90
+  },
+  "debrief": "by (label) keeps only that label, while without (label) drops it. Both can go before or after the parentheses."
+}

@@ -1,0 +1,28 @@
+{
+  "id": 4,
+  "chapter": "Basics",
+  "title": "Explore mode",
+  "intro": "The api service was OOM-killed twice last week. Before it happens again, use Explore to find which pod is using the most memory right now.",
+  "seed": 404,
+  "scenario": {
+    "incidents": [{ "type": "memory_leak", "target": "api-2", "startMin": 300, "magnitude": 1.5 }]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "pod",
+      "type": "choice",
+      "text": "Find the pod with the highest memory usage",
+      "question": "Which pod uses the most memory right now?",
+      "options": ["frontend-1", "frontend-2", "api-1", "api-2", "payments-1", "payments-2"],
+      "answer": 3
+    }
+  ],
+  "hints": [
+    "In Explore, query memory_bytes and look at the table below the graph.",
+    "Want only the top pod? Try topk(1, memory_bytes)."
+  ],
+  "solution": "topk(1, memory_bytes) returns api-2, whose memory has climbed steadily for 5 hours (a leak).",
+  "stars": { "targetSeconds": 90 },
+  "debrief": "Explore is Grafana's scratchpad for ad-hoc questions, with no dashboard needed. A line that climbs steadily and never drops is the classic sign of a memory leak. topk() is a handy way to pull out the worst offender."
+}

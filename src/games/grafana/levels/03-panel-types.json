@@ -1,0 +1,36 @@
+{
+  "id": 3,
+  "chapter": "Basics",
+  "title": "Panel types",
+  "intro": "A wall-mounted NOC screen needs to show node CPU at a glance. A line chart is too busy. Use a stat panel and a gauge instead.",
+  "seed": 303,
+  "scenario": {
+    "incidents": [{ "type": "cpu_spike", "target": "node-b", "startMin": 25, "magnitude": 45 }]
+  },
+  "startView": "dashboard",
+  "objectives": [
+    {
+      "id": "stat",
+      "type": "panel",
+      "text": "Add a Stat panel showing node_cpu_usage with unit Percent",
+      "panelType": "stat",
+      "unit": "percent",
+      "expected": "node_cpu_usage"
+    },
+    {
+      "id": "gauge",
+      "type": "panel",
+      "text": "Add a Gauge panel showing node_cpu_usage with unit Percent",
+      "panelType": "gauge",
+      "unit": "percent",
+      "expected": "node_cpu_usage"
+    }
+  ],
+  "hints": [
+    "In the panel editor, change Visualization from \"Time series\" to \"Stat\" (and later \"Gauge\").",
+    "Under Standard options → Unit, pick \"Percent (0-100)\". The query is node_cpu_usage."
+  ],
+  "solution": "Two panels, both with query node_cpu_usage and unit Percent (0-100): one Stat, one Gauge.",
+  "stars": { "targetSeconds": 150 },
+  "debrief": "Stat and gauge panels reduce a series to one number (by default the last value). Setting the unit matters: 91 means nothing, 91% means page someone. node-b is running hot, so keep that in mind."
+}

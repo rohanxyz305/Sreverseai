@@ -1,0 +1,37 @@
+{
+  "id": 12,
+  "chapter": "Dashboards",
+  "difficulty": "medium",
+  "title": "NOC overview",
+  "intro": "Set up a big-screen view: average node CPU as a single number, over the last hour.",
+  "seed": 1012,
+  "scenario": {
+    "incidents": []
+  },
+  "startView": "dashboard",
+  "objectives": [
+    {
+      "id": "p",
+      "type": "panel",
+      "text": "Add a Stat panel of avg(node_cpu_usage) with unit Percent",
+      "panelType": "stat",
+      "unit": "percent",
+      "expected": "avg(node_cpu_usage)"
+    },
+    {
+      "id": "r",
+      "type": "time_range",
+      "text": "Set the time range to Last 1 hour",
+      "range": "1h"
+    }
+  ],
+  "hints": [
+    "avg() without by () gives a single series.",
+    "Stat panel, unit Percent (0-100), time range Last 1 hour."
+  ],
+  "solution": "Stat panel: avg(node_cpu_usage), unit Percent; time range Last 1 hour",
+  "stars": {
+    "targetSeconds": 150
+  },
+  "debrief": "Big-screen dashboards should answer one question per panel, readable from across the room."
+}

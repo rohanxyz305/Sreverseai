@@ -1,0 +1,49 @@
+{
+  "chapters": [
+    {
+      "title": "Basics",
+      "levels": [
+        { "id": 1, "file": "01-first-panel.json", "title": "Your first panel" },
+        { "id": 2, "file": "02-time-range.json", "title": "Time range and refresh" },
+        { "id": 3, "file": "03-panel-types.json", "title": "Panel types" },
+        { "id": 4, "file": "04-explore.json", "title": "Explore mode" }
+      ]
+    },
+    {
+      "title": "PromQL",
+      "levels": [
+        { "id": 5, "file": "05-selectors.json", "title": "Selectors and labels" },
+        { "id": 6, "title": "rate() and counters" },
+        { "id": 7, "title": "Aggregation" },
+        { "id": 8, "title": "Error ratio" }
+      ]
+    },
+    {
+      "title": "Dashboards",
+      "levels": [
+        { "id": 9, "title": "Variables" },
+        { "id": 10, "title": "Thresholds and units" },
+        { "id": 11, "title": "Transformations and tables" },
+        { "id": 12, "title": "Rows and layout" }
+      ]
+    },
+    {
+      "title": "Logs",
+      "levels": [
+        { "id": 13, "title": "LogQL basics" },
+        { "id": 14, "title": "Logs to metrics" },
+        { "id": 15, "title": "Correlate" },
+        { "id": 16, "title": "Latency histograms" }
+      ]
+    },
+    {
+      "title": "Production",
+      "levels": [
+        { "id": 17, "title": "Alert rules" },
+        { "id": 18, "title": "Contact points and routing" },
+        { "id": 19, "title": "SLOs and error budgets" },
+        { "id": 20, "title": "Final incident" }
+      ]
+    }
+  ]
+}

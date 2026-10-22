@@ -1,0 +1,36 @@
+{
+  "id": 11,
+  "chapter": "PromQL",
+  "difficulty": "hard",
+  "title": "Average latency per service",
+  "intro": "Users say the app feels slow. Calculate average request latency per service from the histogram's _sum and _count.",
+  "seed": 1011,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "latency_jump",
+        "target": "api",
+        "startMin": 20,
+        "magnitude": 3
+      }
+    ]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Show average request duration (seconds) per service",
+      "expected": "sum by (service) (rate(http_request_duration_seconds_sum[5m])) / sum by (service) (rate(http_request_duration_seconds_count[5m]))"
+    }
+  ],
+  "hints": [
+    "Average = total time / number of requests, and both are counters.",
+    "rate(..._sum[5m]) / rate(..._count[5m]), aggregated by service on both sides."
+  ],
+  "solution": "sum by (service) (rate(http_request_duration_seconds_sum[5m])) / sum by (service) (rate(http_request_duration_seconds_count[5m]))",
+  "stars": {
+    "targetSeconds": 240
+  },
+  "debrief": "_sum / _count gives the mean. Means hide outliers, which is why SREs prefer percentiles (histogram_quantile), coming later in the campaign."
+}

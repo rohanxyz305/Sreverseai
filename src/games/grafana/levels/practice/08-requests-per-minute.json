@@ -1,0 +1,29 @@
+{
+  "id": 8,
+  "chapter": "PromQL",
+  "difficulty": "medium",
+  "title": "Requests per minute by method",
+  "intro": "The product team thinks in per-minute numbers. Show requests per minute, split by HTTP method.",
+  "seed": 1008,
+  "scenario": {
+    "incidents": []
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Show requests per minute, one series per method",
+      "expected": "sum by (method) (increase(http_requests_total[1m]))"
+    }
+  ],
+  "hints": [
+    "increase() gives the total growth over the range, not a per-second value.",
+    "sum by (method) (increase(http_requests_total[1m]))"
+  ],
+  "solution": "sum by (method) (increase(http_requests_total[1m]))",
+  "stars": {
+    "targetSeconds": 120
+  },
+  "debrief": "increase(x[1m]) is just rate(x[1m]) * 60. Use whichever reads more naturally to your audience."
+}

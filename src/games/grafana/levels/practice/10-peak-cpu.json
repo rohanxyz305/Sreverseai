@@ -1,0 +1,37 @@
+{
+  "id": 10,
+  "chapter": "PromQL",
+  "difficulty": "medium",
+  "title": "Peak CPU in the last hour",
+  "intro": "A spike came and went. Show each node's highest CPU over the last hour, even though it has calmed down now.",
+  "seed": 1010,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "cpu_spike",
+        "target": "node-b",
+        "startMin": 40,
+        "durationMin": 5,
+        "magnitude": 40
+      }
+    ]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Show the max CPU per node over a 1h window",
+      "expected": "max_over_time(node_cpu_usage[1h])"
+    }
+  ],
+  "hints": [
+    "*_over_time functions work on a range vector of a gauge.",
+    "max_over_time(node_cpu_usage[1h])"
+  ],
+  "solution": "max_over_time(node_cpu_usage[1h])",
+  "stars": {
+    "targetSeconds": 120
+  },
+  "debrief": "max_over_time catches short spikes that averages would hide."
+}

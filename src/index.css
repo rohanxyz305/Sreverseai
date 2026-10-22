@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+@import 'uplot/dist/uPlot.min.css';
+
+/* Grafana-like dark theme. Text contrast on panel background is above 4.5:1. */
+@theme {
+  --color-canvas: #111217;
+  --color-panel: #181b1f;
+  --color-panel-2: #22252b;
+  --color-line: #2c3235;
+  --color-ink: #d8d9e3;
+  --color-muted: #9fa1ad;
+  --color-accent: #6e9fff;
+  --color-brand: #f5a623;
+  --color-ok: #3fb950;
+  --color-warn: #e3b341;
+  --color-bad: #f2495c;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* uPlot on a dark background */
+.uplot {
+  font-family: var(--font-sans);
+  color: var(--color-muted);
+}
+.u-legend {
+  font-size: 12px;
+  text-align: left;
+  max-height: 96px;
+  overflow-y: auto;
+  display: block;
+}
+.u-legend .u-series th,
+.u-legend .u-series td {
+  padding: 1px 4px;
+}
+.u-legend .u-marker {
+  border-radius: 2px;
+}
+
+.cm-editor {
+  font-size: 13px;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+}
+.cm-editor.cm-focused {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 0;
+}
+
+/* Motion: small and purposeful, and disabled for people who ask for less. */
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.94) translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes star {
+  0% { opacity: 0; transform: scale(0.3) rotate(-30deg); }
+  70% { transform: scale(1.2) rotate(8deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes dash {
+  to { stroke-dashoffset: 0; }
+}
+.animate-pop { animation: pop 0.25s ease-out both; }
+.animate-star { display: inline-block; animation: star 0.5s cubic-bezier(0.3, 1.5, 0.6, 1) both; }
+.animate-rise { animation: rise 0.4s ease-out both; }
+.animate-dash { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: dash 2.4s ease-out forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop, .animate-star, .animate-rise, .animate-dash { animation: none; stroke-dashoffset: 0; }
+}
+
+/* Faint grid behind hero sections, like a Grafana panel canvas. */
+.bg-grid {
+  /* One small SVG tile is much cheaper to paint than two repeating gradients. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M32 0H0V32' fill='none' stroke='%23ffffff' stroke-opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 32px 32px;
+}

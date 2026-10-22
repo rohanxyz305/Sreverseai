@@ -1,0 +1,38 @@
+{
+  "id": 4,
+  "chapter": "Panels",
+  "difficulty": "easy",
+  "title": "Memory panel with units",
+  "intro": "Raw numbers like 352321536 confuse everyone. Build a panel for api memory that people can actually read.",
+  "seed": 1004,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "memory_leak",
+        "target": "api-1",
+        "startMin": 180,
+        "magnitude": 1
+      }
+    ]
+  },
+  "startView": "dashboard",
+  "objectives": [
+    {
+      "id": "p",
+      "type": "panel",
+      "text": "Add a time series panel of memory_bytes for service=\"api\" with unit Bytes",
+      "panelType": "timeseries",
+      "unit": "bytes",
+      "expected": "memory_bytes{service=\"api\"}"
+    }
+  ],
+  "hints": [
+    "Filter with memory_bytes{service=\"api\"}.",
+    "Set Standard options → Unit to \"Bytes (IEC)\"."
+  ],
+  "solution": "Time series panel, query memory_bytes{service=\"api\"}, unit Bytes (IEC)",
+  "stars": {
+    "targetSeconds": 120
+  },
+  "debrief": "Units turn numbers into meaning. Notice api-1 climbing steadily: a slow leak you would want to alert on."
+}

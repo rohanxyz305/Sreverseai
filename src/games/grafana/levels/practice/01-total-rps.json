@@ -1,0 +1,29 @@
+{
+  "id": 1,
+  "chapter": "PromQL",
+  "difficulty": "easy",
+  "title": "Total requests per second",
+  "intro": "Your manager asks one question: how much traffic are we serving right now, across everything?",
+  "seed": 1001,
+  "scenario": {
+    "incidents": []
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Show total requests per second across all services",
+      "expected": "sum(rate(http_requests_total[5m]))"
+    }
+  ],
+  "hints": [
+    "Counters only go up. rate() turns them into per-second values.",
+    "Wrap rate(http_requests_total[5m]) in sum()."
+  ],
+  "solution": "sum(rate(http_requests_total[5m]))",
+  "stars": {
+    "targetSeconds": 90
+  },
+  "debrief": "sum(rate(counter[5m])) is the most common PromQL query there is. Remember: rate first, then sum, never the other way round."
+}

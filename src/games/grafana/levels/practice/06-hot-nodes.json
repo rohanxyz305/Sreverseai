@@ -1,0 +1,36 @@
+{
+  "id": 6,
+  "chapter": "PromQL",
+  "difficulty": "medium",
+  "title": "Hot nodes only",
+  "intro": "You only care about nodes that are in trouble. Show node CPU, but only for nodes above 80%.",
+  "seed": 1006,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "cpu_spike",
+        "target": "node-a",
+        "startMin": 45,
+        "magnitude": 45
+      }
+    ]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Show only nodes whose CPU is above 80",
+      "expected": "node_cpu_usage > 80"
+    }
+  ],
+  "hints": [
+    "Comparison operators filter series in PromQL.",
+    "node_cpu_usage > 80"
+  ],
+  "solution": "node_cpu_usage > 80",
+  "stars": {
+    "targetSeconds": 90
+  },
+  "debrief": "Without bool, a comparison is a filter. That is exactly how alert rules work: one alert per series the expression returns."
+}

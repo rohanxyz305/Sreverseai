@@ -1,0 +1,29 @@
+{
+  "id": 3,
+  "chapter": "PromQL",
+  "difficulty": "easy",
+  "title": "Count the pods",
+  "intro": "Capacity planning wants to know how many pods each service runs. Every pod exports memory_bytes, so use that.",
+  "seed": 1003,
+  "scenario": {
+    "incidents": []
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Count pods per service",
+      "expected": "count by (service) (memory_bytes)"
+    }
+  ],
+  "hints": [
+    "count() counts series, not values.",
+    "count by (service) (memory_bytes)"
+  ],
+  "solution": "count by (service) (memory_bytes)",
+  "stars": {
+    "targetSeconds": 75
+  },
+  "debrief": "count() is a quick way to answer 'how many?' questions: pods, nodes, targets that are up."
+}

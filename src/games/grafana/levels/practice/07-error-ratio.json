@@ -1,0 +1,36 @@
+{
+  "id": 7,
+  "chapter": "PromQL",
+  "difficulty": "medium",
+  "title": "Error ratio per service",
+  "intro": "Checkout is flaky. Compute the fraction of requests that fail with 5xx, per service, as a ratio between 0 and 1.",
+  "seed": 1007,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "error_burst",
+        "target": "payments",
+        "startMin": 30,
+        "magnitude": 0.2
+      }
+    ]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "q",
+      "type": "query_result",
+      "text": "Show 5xx ratio (0-1) per service",
+      "expected": "sum by (service) (rate(http_requests_total{status=~\"5..\"}[5m])) / sum by (service) (rate(http_requests_total[5m]))"
+    }
+  ],
+  "hints": [
+    "Divide the 5xx rate by the total rate. Both sides need the same labels.",
+    "sum by (service) (rate(...{status=~\"5..\"}[5m])) / sum by (service) (rate(...[5m]))"
+  ],
+  "solution": "sum by (service) (rate(http_requests_total{status=~\"5..\"}[5m])) / sum by (service) (rate(http_requests_total[5m]))",
+  "stars": {
+    "targetSeconds": 180
+  },
+  "debrief": "Aggregate both sides by the same labels before dividing, or the series won't match. payments is failing about 20% of requests."
+}

@@ -1,0 +1,45 @@
+{
+  "id": 15,
+  "chapter": "Troubleshooting",
+  "difficulty": "hard",
+  "title": "Memory leak hunt",
+  "intro": "Something is slowly eating memory, but it isn't the biggest pod. Find the pod whose memory keeps growing.",
+  "seed": 1015,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "memory_leak",
+        "target": "frontend-1",
+        "startMin": 240,
+        "magnitude": 0.3
+      }
+    ]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "pod",
+      "type": "choice",
+      "text": "Find the leaking pod",
+      "question": "Which pod is leaking memory?",
+      "options": [
+        "frontend-1",
+        "frontend-2",
+        "api-1",
+        "api-2",
+        "payments-1",
+        "payments-2"
+      ],
+      "answer": 0
+    }
+  ],
+  "hints": [
+    "The biggest pod isn't necessarily the leaking one. Look at growth, not size.",
+    "delta(memory_bytes[1h]) shows how much each pod grew in the last hour."
+  ],
+  "solution": "delta(memory_bytes[1h]): frontend-1 grew about 18 MiB in the last hour while the others stayed flat.",
+  "stars": {
+    "targetSeconds": 180
+  },
+  "debrief": "Leaks are about the trend, not the level. delta() over a long window (or deriv() and predict_linear() in real Prometheus) shows them clearly."
+}

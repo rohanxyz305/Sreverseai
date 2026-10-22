@@ -1,0 +1,30 @@
+{
+  "id": 5,
+  "chapter": "Panels",
+  "difficulty": "easy",
+  "title": "Database gauge",
+  "intro": "The DBA wants a gauge of active database connections on the team dashboard.",
+  "seed": 1005,
+  "scenario": {
+    "incidents": []
+  },
+  "startView": "dashboard",
+  "objectives": [
+    {
+      "id": "p",
+      "type": "panel",
+      "text": "Add a Gauge panel showing db_connections_active",
+      "panelType": "gauge",
+      "expected": "db_connections_active"
+    }
+  ],
+  "hints": [
+    "Add panel → Visualization → Gauge.",
+    "The query is db_connections_active."
+  ],
+  "solution": "Gauge panel with query db_connections_active",
+  "stars": {
+    "targetSeconds": 75
+  },
+  "debrief": "Gauges work best for values with a known range, like connections against a pool limit."
+}

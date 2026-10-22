@@ -1,0 +1,31 @@
+{
+  "id": 1,
+  "chapter": "Basics",
+  "title": "Your first panel",
+  "intro": "You just joined the on-call rotation. The team's dashboard is empty. Start by charting how many HTTP requests each service has served.",
+  "tutorial": [
+    "Click \"Add panel\" at the top of the dashboard.",
+    "Leave the visualization as \"Time series\".",
+    "In the query box, type http_requests_total and press Ctrl+Enter to run it.",
+    "Click \"Apply\" to save the panel to the dashboard."
+  ],
+  "seed": 101,
+  "scenario": { "incidents": [] },
+  "startView": "dashboard",
+  "objectives": [
+    {
+      "id": "panel",
+      "type": "panel",
+      "text": "Add a time series panel that shows http_requests_total",
+      "panelType": "timeseries",
+      "expected": "http_requests_total"
+    }
+  ],
+  "hints": [
+    "Use the \"Add panel\" button at the top right of the dashboard.",
+    "The query is just the metric name: http_requests_total"
+  ],
+  "solution": "Add panel → Time series → query: http_requests_total → Apply",
+  "stars": { "targetSeconds": 90 },
+  "debrief": "Every Grafana panel is a query plus a visualization. Notice the lines only go up: http_requests_total is a counter, which is why you rarely graph it raw. You'll fix that with rate() in Chapter 2."
+}

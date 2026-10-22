@@ -1,0 +1,26 @@
+{
+  "id": 5,
+  "chapter": "PromQL",
+  "title": "Selectors and labels",
+  "intro": "Customers report failed checkouts. Narrow http_requests_total down to just the server errors (5xx) from the api service.",
+  "seed": 505,
+  "scenario": {
+    "incidents": [{ "type": "error_burst", "target": "api", "startMin": 20, "magnitude": 0.15 }]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "filter",
+      "type": "query_result",
+      "text": "Select http_requests_total for service=\"api\" with any 5xx status",
+      "expected": "http_requests_total{service=\"api\", status=~\"5..\"}"
+    }
+  ],
+  "hints": [
+    "Label matchers go in curly braces: metric{label=\"value\"}.",
+    "Use =~ for a regex match: status=~\"5..\" matches 500, 502, 503 and so on."
+  ],
+  "solution": "http_requests_total{service=\"api\", status=~\"5..\"}",
+  "stars": { "targetSeconds": 120 },
+  "debrief": "Label matchers are the core of PromQL: = exact, != not equal, =~ regex, !~ not regex. Regexes are fully anchored, so \"5..\" matches only three-character codes starting with 5. Next up: those counters still only go up. Time for rate()."
+}

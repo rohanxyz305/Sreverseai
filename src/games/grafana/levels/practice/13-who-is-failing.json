@@ -1,0 +1,42 @@
+{
+  "id": 13,
+  "chapter": "Troubleshooting",
+  "difficulty": "hard",
+  "title": "Who's throwing errors?",
+  "intro": "PagerDuty fired \"HighErrorRate\", but the alert does not say which service. Find it.",
+  "seed": 1013,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "error_burst",
+        "target": "payments",
+        "startMin": 15,
+        "magnitude": 0.3
+      }
+    ]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "svc",
+      "type": "choice",
+      "text": "Identify the failing service",
+      "question": "Which service is returning 5xx errors?",
+      "options": [
+        "frontend",
+        "api",
+        "payments"
+      ],
+      "answer": 2
+    }
+  ],
+  "hints": [
+    "Filter http_requests_total to status=~\"5..\" and look at the rate.",
+    "sum by (service) (rate(http_requests_total{status=~\"5..\"}[5m]))"
+  ],
+  "solution": "sum by (service) (rate(http_requests_total{status=~\"5..\"}[5m])) shows payments far above the others.",
+  "stars": {
+    "targetSeconds": 120
+  },
+  "debrief": "Every incident starts with 'where?'. Breaking the error rate down by service is the fastest first step."
+}

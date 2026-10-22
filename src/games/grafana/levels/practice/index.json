@@ -1,0 +1,124 @@
+{
+  "challenges": [
+    {
+      "id": 1,
+      "file": "01-total-rps.json",
+      "title": "Total requests per second",
+      "topic": "PromQL",
+      "difficulty": "easy",
+      "blurb": "Your manager asks one question: how much traffic are we serving right now, across everything?"
+    },
+    {
+      "id": 2,
+      "file": "02-traffic-per-service.json",
+      "title": "Traffic per service",
+      "topic": "PromQL",
+      "difficulty": "easy",
+      "blurb": "One number hides too much. Break the request rate down so there is one line per service."
+    },
+    {
+      "id": 3,
+      "file": "03-count-pods.json",
+      "title": "Count the pods",
+      "topic": "PromQL",
+      "difficulty": "easy",
+      "blurb": "Capacity planning wants to know how many pods each service runs. Every pod exports memory_bytes, so use that."
+    },
+    {
+      "id": 4,
+      "file": "04-memory-panel.json",
+      "title": "Memory panel with units",
+      "topic": "Panels",
+      "difficulty": "easy",
+      "blurb": "Raw numbers like 352321536 confuse everyone. Build a panel for api memory that people can actually read."
+    },
+    {
+      "id": 5,
+      "file": "05-db-gauge.json",
+      "title": "Database gauge",
+      "topic": "Panels",
+      "difficulty": "easy",
+      "blurb": "The DBA wants a gauge of active database connections on the team dashboard."
+    },
+    {
+      "id": 6,
+      "file": "06-hot-nodes.json",
+      "title": "Hot nodes only",
+      "topic": "PromQL",
+      "difficulty": "medium",
+      "blurb": "You only care about nodes that are in trouble. Show node CPU, but only for nodes above 80%."
+    },
+    {
+      "id": 7,
+      "file": "07-error-ratio.json",
+      "title": "Error ratio per service",
+      "topic": "PromQL",
+      "difficulty": "medium",
+      "blurb": "Checkout is flaky. Compute the fraction of requests that fail with 5xx, per service, as a ratio between 0 and 1."
+    },
+    {
+      "id": 8,
+      "file": "08-requests-per-minute.json",
+      "title": "Requests per minute by method",
+      "topic": "PromQL",
+      "difficulty": "medium",
+      "blurb": "The product team thinks in per-minute numbers. Show requests per minute, split by HTTP method."
+    },
+    {
+      "id": 9,
+      "file": "09-top-cpu-table.json",
+      "title": "Top 3 CPU pods",
+      "topic": "Dashboards",
+      "difficulty": "medium",
+      "blurb": "Build a leaderboard of the busiest pods for the capacity review."
+    },
+    {
+      "id": 10,
+      "file": "10-peak-cpu.json",
+      "title": "Peak CPU in the last hour",
+      "topic": "PromQL",
+      "difficulty": "medium",
+      "blurb": "A spike came and went. Show each node's highest CPU over the last hour, even though it has calmed down now."
+    },
+    {
+      "id": 11,
+      "file": "11-avg-latency.json",
+      "title": "Average latency per service",
+      "topic": "PromQL",
+      "difficulty": "hard",
+      "blurb": "Users say the app feels slow. Calculate average request latency per service from the histogram's _sum and _count."
+    },
+    {
+      "id": 12,
+      "file": "12-noc-overview.json",
+      "title": "NOC overview",
+      "topic": "Dashboards",
+      "difficulty": "medium",
+      "blurb": "Set up a big-screen view: average node CPU as a single number, over the last hour."
+    },
+    {
+      "id": 13,
+      "file": "13-who-is-failing.json",
+      "title": "Who's throwing errors?",
+      "topic": "Troubleshooting",
+      "difficulty": "hard",
+      "blurb": "PagerDuty fired \"HighErrorRate\", but the alert does not say which service. Find it."
+    },
+    {
+      "id": 14,
+      "file": "14-slow-service.json",
+      "title": "The slow service",
+      "topic": "Troubleshooting",
+      "difficulty": "hard",
+      "blurb": "Latency SLO alert! Find which service got slow, and when it started."
+    },
+    {
+      "id": 15,
+      "file": "15-leak-hunt.json",
+      "title": "Memory leak hunt",
+      "topic": "Troubleshooting",
+      "difficulty": "hard",
+      "blurb": "Something is slowly eating memory, but it isn't the biggest pod. Find the pod whose memory keeps growing."
+    }
+  ]
+}

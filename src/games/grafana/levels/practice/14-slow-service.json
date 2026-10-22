@@ -1,0 +1,55 @@
+{
+  "id": 14,
+  "chapter": "Troubleshooting",
+  "difficulty": "hard",
+  "title": "The slow service",
+  "intro": "Latency SLO alert! Find which service got slow, and when it started.",
+  "seed": 1014,
+  "scenario": {
+    "incidents": [
+      {
+        "type": "latency_jump",
+        "target": "frontend",
+        "startMin": 12,
+        "magnitude": 4
+      }
+    ]
+  },
+  "startView": "explore",
+  "objectives": [
+    {
+      "id": "svc",
+      "type": "choice",
+      "text": "Find the slow service",
+      "question": "Which service's latency jumped?",
+      "options": [
+        "frontend",
+        "api",
+        "payments"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "when",
+      "type": "choice",
+      "text": "Find when it started",
+      "question": "When did it start? (UTC)",
+      "options": [
+        "11:18",
+        "11:33",
+        "11:48",
+        "11:55"
+      ],
+      "answer": 2
+    }
+  ],
+  "hints": [
+    "Average latency = rate(_sum) / rate(_count), per service.",
+    "Zoom to Last 15 or 30 minutes and look for the step change."
+  ],
+  "solution": "rate(http_request_duration_seconds_sum[1m]) / rate(http_request_duration_seconds_count[1m]): frontend jumps 4x at 11:48.",
+  "stars": {
+    "targetSeconds": 180
+  },
+  "debrief": "Knowing when something started lets you match it to deploys, config changes and traffic shifts. A short window like [1m] shows the exact moment."
+}
