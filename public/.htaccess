@@ -1,10 +1,20 @@
 RewriteEngine On
+
+# Force HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} !^/api/
-RewriteRule ^ index.html [L]
+
+# Serve real files directly (explicit, so it also works on LiteSpeed)
+RewriteRule ^index\.html$ - [L]
+RewriteRule ^assets/ - [L]
+RewriteRule \.(js|mjs|css|map|json|txt|xml|svg|png|jpe?g|gif|webp|ico|woff2?|ttf|webmanifest)$ - [L,NC]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+
+# Everything else is a client-side route
+RewriteRule ^ /index.html [L]
+
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
 </IfModule>
