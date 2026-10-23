@@ -1,22 +1,31 @@
-name: CI and deploy
+# Build, test and deploy Sreverseai to the VPS over FTP.
+# Needs repository secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
+name: CI/CD
 
 on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
-  test-and-build:
+  build:
+    name: Test and build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -27,32 +36,35 @@ jobs:
       - name: Type check
         run: npx tsc -b
 
-      - name: Unit and level tests
+      - name: Run tests
         run: npm test
 
-      - name: Build
+      - name: Build site
         run: npm run build
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload build
+        uses: actions/upload-artifact@v5
         with:
-          name: dist
+          name: site
           path: dist/
           include-hidden-files: true
           retention-days: 7
 
   deploy:
-    needs: test-and-build
-    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
+    name: Deploy to VPS
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    environment:
+      name: production
     steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
+      - name: Download build
+        uses: actions/download-artifact@v5
         with:
-          name: dist
+          name: site
           path: dist/
 
-      - name: Upload to hosting over FTP
+      - name: Upload over FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -62,4 +74,5 @@ jobs:
           port: 21
           local-dir: ./dist/
           server-dir: ./public_html/
+          dangerous-clean-slate: false
           timeout: 120000

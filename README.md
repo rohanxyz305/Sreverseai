@@ -45,7 +45,8 @@ npm run build    # static output in dist/
 
 ## Deploy
 
-`.github/workflows/deploy.yml` tests, builds and uploads `dist/` over FTPS on every push to `main`.
-It needs the repo secrets `FTP_SERVER`, `FTP_USERNAME` and `FTP_PASSWORD`. `public/.htaccess` forces HTTPS and rewrites SPA routes.
+`.github/workflows/ci-cd.yml` type-checks, tests and builds on every push and pull request. On a push to `main` (or a manual run),
+it uploads `dist/` to the VPS over FTP into `public_html/`. It needs the repo secrets `FTP_SERVER`, `FTP_USERNAME` and `FTP_PASSWORD`.
+`public/.htaccess` forces HTTPS and rewrites SPA routes.
 
 Product names such as Grafana, Prometheus and Kubernetes are trademarks of their owners. Sreverseai is not affiliated with or endorsed by them.
