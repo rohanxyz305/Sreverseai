@@ -41,14 +41,10 @@ jobs:
           include-hidden-files: true
           retention-days: 7
 
-  # The host blocks inbound FTP, so we publish the build to a "deploy" branch.
-  # A cron job on the hosting server (deploy.sh) pulls it every few minutes.
   deploy:
     needs: test-and-build
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Download build artifact
         uses: actions/download-artifact@v4
@@ -56,15 +52,14 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Add version marker
-        run: echo "${{ github.sha }}" > dist/version.txt
-
-      - name: Publish build to deploy branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload to hosting over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: deploy
-          publish_dir: ./dist
-          force_orphan: true
-          enable_jekyll: true
-          commit_message: "Deploy ${{ github.sha }}"
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./dist/
+          server-dir: ./
+          timeout: 120000
